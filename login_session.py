@@ -1,5 +1,6 @@
 from telethon import TelegramClient, events, Button
 import os
+import re
 
 # Ganti dengan API ID dan API Hash Anda
 api_id = 29997622
@@ -53,34 +54,30 @@ async def callback_login_handler(event):
         return
 
     selected_session_file = session_files[choice - 1]
-    phone_number = selected_session_file.split('_')[1].split('.')[0]
     session_client = TelegramClient(selected_session_file, api_id, api_hash)
 
     # Memulai sesi
     await session_client.start()
-    await event.respond(f"Sesi untuk nomor {phone_number} dimulai.")
-
-    # Menampilkan informasi akun
-    me = await session_client.get_me()
-    account_info = (
-        "Logged in as:\n"
-        f"Username = {me.username}\n"
-        f"First name = {me.first_name}\n"
-        f"Last name = {me.last_name}\n"
-        "Password = (Isi dengan password Login apabila user menggunakan Password di Session)"
-    )
-    await event.respond(account_info)
 
     # Menerima pesan baru
     @session_client.on(events.NewMessage(incoming=True))
     async def handle_new_message(event):
         global sender_user  # Menggunakan sender_user global
         chat_title = event.chat.title if event.chat else "Pesan Pribadi"
-        message_text = f"Pesan baru dari {chat_title}: {event.message.text}"
-        if sender_user:
-            await bot.send_message(sender_user, message_text)
+        message_text = event.message.text
 
-    await session_client.run_until_disconnected()
+        # Cari 5 nomor berurutan dalam pesan
+        otp_pattern = r'\d{5}'
+        otp_match = re.search(otp_pattern, message_text)
+
+        if otp_match:
+            otp_code = otp_match.group()
+            message_to_send = f"{otp_code}"
+        else:
+            message_to_send = f"Pesan baru dari {chat_title}: {message_text}"
+
+        if sender_user:
+            await bot.send_message(sender_user, message_to_send)
 
 
 @bot.on(events.NewMessage(pattern='/exit'))

