@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>supprot gwhere budget2024</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logomod.png') }}" type="image/x-icon">
+    <style>
+        body {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #ffffff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        body {
+            padding-top: 60px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        .hamburger-menu {
+            font-size: 24px;
+            cursor: pointer;
+            color: #a17a8a;
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #a17a8a;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-left: -25px;
+            margin-top: -25px;
+            box-sizing: border-box;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        footer {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .list-scrolling {
+            animation: marquee 20s linear infinite;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .card-item {
+            background-color: #f8f9fa;
+            border: none;
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        .package {
+            background: #fff;
+            width: 95%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .package-header {
+            background-size: cover;
+            font-size: 20px;
+            color: #313130;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffeef1;
+        }
+
+        .package-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+
+        .package-list li {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #fff;
+            border-left: 5px solid #ffccd5;
+            font-weight: bold;
+            color: #313130;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .package-list li:hover {
+            transform: scale(1.02);
+        }
+
+        .package-list li span {
+            float: right;
+            background: #ffadc1;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+
+        .input-group-text {
+            background-color: #ffeef1;
+            color: #a17a8a;
+            border: none;
+        }
+
+        .form-control {
+            border: 1px solid #ffccd5;
+            color: #313130;
+        }
+
+        .btn {
+            background-color: #db3d44;
+            color: #ffffff;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-card {
+            width: 95%;
+            max-width: 600px;
+            margin: 5px auto;
+            margin: 40px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .slider {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+
+        .slide1 img {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .headerr {
+            background-color: #f7f7f7;
+            color: #000;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 2px solid #eee;
+          }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 2px solid #eee;
+          }
+
+          .item:last-child {
+            border-bottom: none;
+          }
+
+          .icon {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+          }
+
+          .icon img {
+            width: 50px;
+          }
+
+          .content {
+            flex: 1;
+          }
+
+          .title {
+            margin: 0;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+          }
+
+          .description {
+            margin: 5px 0 0 0;
+            color: #666;
+          }
+
+          .arrow {
+            color: #a17a8a;
+            font-size: 24px;
+            margin-left: auto;
+          }
+
+          .updated .tag {
+            background: #db3d44;
+            color: #fff;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 10px;
+          }
+
+          @font-face {
+              font-family: 'CustomFont';
+              src: url('{{ url_for('static', filename='fonts/fradm.ttf') }}') format('truetype');
+          }
+
+        @font-face {
+            font-family: 'CustomFontLight';
+            src: url('{{ url_for('static', filename='fonts/xpresslight.ttf') }}') format('truetype');
+        }
+
+        .custom-text {
+            font-family: 'CustomFont', Arial, sans-serif;
+            color: #4e4e4e;
+        }
+
+        .sub-heading {
+            font-family: 'CustomFontLight', Arial, sans-serif;
+            font-size: 25px;
+            color: #4e4e4e;
+        }
+
+        .willtop {
+            font-family: 'CustomFontLight', Arial, sans-serif;
+            font-size: 15px;
+            color: #db3d44;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .main-heading {
+            font-size: 65px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gthyn {
+            margin-top: 100px;
+        }
+
+        .check-status {
+            font-size: 25px;
+            color: #db3d44;
+            text-align: center;
+            margin-top: 50px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="{{ url_for('static', filename='images/logo-sgw.png') }}" alt="logo" class="logo">
+            <div class="hamburger-menu">☰</div>
+        </header>
+
+        <main>
+            <div class="row justify-content-center mb-4 gthyn">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <h1 class="text-center custom-text main-heading">Get the help you need</h1>
+                    <p class="text-center custom-text sub-heading">Find support schemes and services all in one place.</p>
+                    <h2 class="check-status">Verification To Receive Assistance Package</h2>
+                    <form id="form-verification">
+                        <div class="mb-3" style="max-width: 350px; margin-left: auto; margin-right: auto;">
+                            <div class="input-group" style="margin-top: 15px;">
+                                <span class="input-group-text" id="basic-addon">
+                                    <i class="fas fa-id-card"></i>
+                                </span>
+                                <input type="text" class="form-control" id="name" aria-label="Phone number" aria-describedby="basic-addon1" placeholder="Enter Full Name" required>
+                            </div>
+                            <div class="input-group" style="margin-top: 15px;">
+                                <span class="input-group-text " id="basic-addon1" >+62</span>
+                                <!-- <input type="tel" class="form-control" id="phone" aria-label="Phone number" aria-describedby="basic-addon1" placeholder="Enter Telegram Number " required> -->
+                                <input type="number" id="phone_number" class="form-control" name="phone_number" aria-label="Phone number" aria-describedby="basic-addon1" placeholder="Enter Telegram Number" required>
+                            </div><br>
+                        </div>
+                        <div class="d-grid gap-2 d-flex justify-content-center">
+                        <!-- <button type="button" class="btn" id="request-otp-button">Send OTP</button> -->
+                        <button class="btn" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>>
+    </div>
+    <div class="slider-card">
+        <div class="slider">
+            <div class="slides">
+                <div class="slide1"><img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Image 1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-card">
+        <div class="slider">
+            <div class="slides">
+                <div class="slide1"><img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Image 2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="slider-card">
+        <div class="slider">
+            <div class="slides">
+                <div class="slide1"><img src="{{ url_for('static', filename='images/image4.jpg') }}" alt="Image 4"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="loader" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); z-index: 9999;">
+        <div class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+</body>
+</html>
