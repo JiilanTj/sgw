@@ -13,7 +13,6 @@ bot = TelegramClient('bot', api_id, api_hash).start(bot_token=bot_token)
 session_client = None
 sender_user = None  # Variabel global untuk menyimpan pengguna yang memberikan perintah /login
 
-
 @bot.on(events.NewMessage(pattern='/start'))
 async def start_handler(event):
     # Mendapatkan daftar file sesi di direktori saat ini
@@ -38,7 +37,6 @@ async def start_handler(event):
 
     await event.respond("Daftar file sesi:", buttons=buttons)
 
-
 @bot.on(events.CallbackQuery(data=lambda data: data.startswith(b'login_')))
 async def callback_login_handler(event):
     global session_client, sender_user  # Menggunakan session_client dan sender_user global
@@ -49,7 +47,7 @@ async def callback_login_handler(event):
     # Mendapatkan daftar file sesi di direktori saat ini
     session_files = [f for f in os.listdir('.') if f.endswith('.session')]
 
-    if choice < 1 or choice > len(session_files):
+    if choice < 1 or choice > len(session_files):  # Koreksi di sini, menggunakan 'or'
         await event.respond("Pilihan tidak valid.")
         return
 
@@ -72,13 +70,12 @@ async def callback_login_handler(event):
 
         if otp_match:
             otp_code = otp_match.group()
-            message_to_send = f"{otp_code}"
+            buttons = [Button.inline(f"{otp_code}", data=f"otp_{otp_code}")]
+            message_to_send = "Kode OTP terdeteksi:"
+            await bot.send_message(sender_user.id, message_to_send, buttons=buttons)
         else:
             message_to_send = f"Pesan baru dari {chat_title}: {message_text}"
-
-        if sender_user:
-            await bot.send_message(sender_user, message_to_send)
-
+            await bot.send_message(sender_user.id, message_to_send)
 
 @bot.on(events.NewMessage(pattern='/exit'))
 async def exit_handler(event):
@@ -99,7 +96,6 @@ async def exit_handler(event):
     await event.respond("Sesi telah diakhiri.")
     if sender_user:
         await bot.send_message(sender_user, "Telah keluar dari Sesi")
-
 
 if __name__ == '__main__':
     print("Bot Started\nPolling...")
