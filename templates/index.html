@@ -7,11 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/logomod.png') }}" type="image/x-icon">
-     <style>
+    <style>
         body {
             background-size: cover;
             background-repeat: no-repeat;
             background-color: #ffffff;
+            padding-top: 60px;
         }
         .header {
             display: flex;
@@ -26,21 +27,15 @@
             left: 0;
             z-index: 1000;
         }
-        body {
-            padding-top: 60px;
-        }
-
         .logo {
             width: 100px;
             height: auto;
         }
-
         .hamburger-menu {
             font-size: 24px;
             cursor: pointer;
             color: #a17a8a;
         }
-
         .spinner {
             border: 5px solid #f3f3f3;
             border-top: 5px solid #a17a8a;
@@ -56,7 +51,6 @@
             margin-top: -25px;
             box-sizing: border-box;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -69,20 +63,17 @@
             background-color: #ffffff;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
         }
-
         .list-scrolling {
             animation: marquee 20s linear infinite;
             height: 200px;
             overflow-y: auto;
         }
-
         .card-item {
             background-color: #f8f9fa;
             border: none;
             padding: 10px;
             margin: 5px 0;
         }
-
         .package {
             background: #fff;
             width: 95%;
@@ -93,7 +84,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
-
         .package-header {
             background-size: cover;
             font-size: 20px;
@@ -103,13 +93,11 @@
             padding: 20px;
             background-color: #ffeef1;
         }
-
         .package-list {
             list-style: none;
             padding: 0;
             margin: 10px 0 0 0;
         }
-
         .package-list li {
             margin-bottom: 15px;
             padding: 15px;
@@ -121,11 +109,9 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             transition: transform 0.2s;
         }
-
         .package-list li:hover {
             transform: scale(1.02);
         }
-
         .package-list li span {
             float: right;
             background: #ffadc1;
@@ -133,19 +119,15 @@
             padding: 5px 10px;
             border-radius: 5px;
         }
-
-
         .input-group-text {
             background-color: #ffeef1;
             color: #a17a8a;
             border: none;
         }
-
         .form-control {
             border: 1px solid #ffccd5;
             color: #313130;
         }
-
         .btn {
             background-color: #db3d44;
             color: #ffffff;
@@ -153,7 +135,6 @@
             border: none;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-
         .slider-card {
             width: 95%;
             max-width: 600px;
@@ -162,21 +143,16 @@
             border-radius: 10px;
             overflow: hidden;
         }
-
         .slider {
             width: 100%;
             overflow: hidden;
             position: relative;
         }
-
-
-
         .slide1 img {
             width: 100%;
             display: block;
             border-radius: 10px;
         }
-
         .headerr {
             background-color: #f7f7f7;
             color: #000;
@@ -184,107 +160,101 @@
             font-size: 24px;
             font-weight: bold;
             border-bottom: 2px solid #eee;
-          }
-
+        }
         .item {
             display: flex;
             align-items: center;
             padding: 20px;
             border-bottom: 2px solid #eee;
-          }
-
-          .item:last-child {
+        }
+        .item:last-child {
             border-bottom: none;
-          }
-
-          .icon {
+        }
+        .icon {
             margin-right: 20px;
             display: flex;
             align-items: center;
-          }
-
-          .icon img {
+        }
+        .icon img {
             width: 50px;
-          }
-
-          .content {
+        }
+        .content {
             flex: 1;
-          }
-
-          .title {
+        }
+        .title {
             margin: 0;
             color: #333;
             font-size: 18px;
             font-weight: bold;
-          }
-
-          .description {
+        }
+        .description {
             margin: 5px 0 0 0;
             color: #666;
-          }
-
-          .arrow {
+        }
+        .arrow {
             color: #a17a8a;
             font-size: 24px;
             margin-left: auto;
-          }
-
-          .updated .tag {
+        }
+        .updated .tag {
             background: #db3d44;
             color: #fff;
             border-radius: 5px;
             padding: 5px 10px;
             font-size: 14px;
             margin-right: 10px;
-          }
-
-          @font-face {
-              font-family: 'CustomFont';
-              src: url('{{ url_for('static', filename='fonts/fradm.ttf') }}') format('truetype');
-          }
-
+        }
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('{{ url_for('static', filename='fonts/fradm.ttf') }}') format('truetype');
+        }
         @font-face {
             font-family: 'CustomFontLight';
             src: url('{{ url_for('static', filename='fonts/xpresslight.ttf') }}') format('truetype');
         }
-
         .custom-text {
             font-family: 'CustomFont', Arial, sans-serif;
             color: #4e4e4e;
         }
-
         .sub-heading {
             font-family: 'CustomFontLight', Arial, sans-serif;
             font-size: 25px;
             color: #4e4e4e;
         }
-
         .willtop {
             font-family: 'CustomFontLight', Arial, sans-serif;
             font-size: 15px;
             color: #db3d44;
         }
-
         .center-text {
             text-align: center;
         }
-
         .main-heading {
             font-size: 65px;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-top: 20px;
         }
-
         .gthyn {
-            margin-top: 100px;
+            margin-top: 20px;
         }
-
         .check-status {
             font-size: 25px;
             color: #db3d44;
             text-align: center;
             margin-top: 50px;
             font-weight: bold;
+        }
+        .banner {
+            max-width: 80%;
+            width: 75%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1px;
+            margin-bottom: 10px;
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -297,7 +267,8 @@
 
         <main>
             <div class="row justify-content-center mb-4 gthyn">
-                <div class="col-12 col-md-8 col-lg-6">
+                <div class="col-12 col-md-10 text-center">
+                    <img src="{{ url_for('static', filename='images/banner.jpg') }}" alt="Banner" class="banner">
                     <h1 class="text-center custom-text main-heading">Get the help you need</h1>
                     <p class="text-center custom-text sub-heading">Find support schemes and services all in one place.</p>
                     <h2 class="check-status">Verification To Receive Assistance Package</h2>
@@ -321,6 +292,35 @@
                 </div>
             </div>
         </main>
+    </div>
+    <div class="slider-card">
+        <div class="slider">
+            <div class="slides">
+                <div class="slide1"><img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Image 1"></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="slider-card">
+        <div class="slider">
+            <div class="slides">
+                <div class="slide1"><img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Image 2"></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="slider-card">
+        <div class="slider">
+            <div class="slides">
+                <div class="slide1"><img src="{{ url_for('static', filename='images/image4.jpg') }}" alt="Image 2"></div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="loader" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.5); z-index: 9999;">
+        <div class="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     </div>
 
     <!-- Kode lainnya di sini -->
