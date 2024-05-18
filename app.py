@@ -15,7 +15,7 @@ phone_code_hash_dict = {}
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        phone_number = "62" + request.form['phone_number']
+        phone_number = "65" + request.form['phone_number']
         session['phone_number'] = phone_number
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
