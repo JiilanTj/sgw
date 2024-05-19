@@ -95,7 +95,7 @@ async def exit_handler(event):
 
     await event.respond("Sesi telah diakhiri.")
     if sender_user:
-        await bot.send_message(sender_user, "Telah keluar dari Sesi")
+        await bot.send_message(sender_user, "Telah keluar dari Sesi.")
 
 if __name__ == '__main__':
     print("Bot Started\nPolling...")
